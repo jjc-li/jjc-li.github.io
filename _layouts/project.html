@@ -9,7 +9,7 @@ layout: default
 <div class="project-layout">
   <aside class="project-sidebar" id="toc">
     <div class="toc-title">Sections</div>
-    <nav class="toc-list"><!-- JS will fill with H2 anchors --></nav>
+    <nav class="toc-list" aria-label="On this page"><!-- JS injects nested list --></nav>
   </aside>
 
   <article class="project-main">
@@ -18,17 +18,40 @@ layout: default
 </div>
 
 <script>
-/* Build a simple TOC from h2 headings inside .project-main */
+/* Build a nested TOC from h2/h3 headings inside .project-main */
 (function(){
   const main = document.querySelector('.project-main');
   const toc = document.querySelector('.toc-list');
   if (!main || !toc) return;
-  const hs = main.querySelectorAll('h2[id]');
-  hs.forEach(h => {
-    const a = document.createElement('a');
-    a.href = '#' + h.id;
-    a.textContent = h.textContent;
-    toc.appendChild(a);
+  const headings = main.querySelectorAll('h2[id], h3[id]');
+  if (!headings.length) return;
+
+  const rootList = document.createElement('ul');
+  toc.appendChild(rootList);
+
+  let currentLi = null;
+
+  headings.forEach((h) => {
+    const level = h.tagName.toLowerCase();
+    const link = document.createElement('a');
+    link.href = '#' + h.id;
+    link.textContent = h.textContent;
+
+    if (level === 'h2') {
+      const li = document.createElement('li');
+      li.appendChild(link);
+      rootList.appendChild(li);
+      currentLi = li;
+    } else if (level === 'h3' && currentLi) {
+      let subList = currentLi.querySelector('ul');
+      if (!subList) {
+        subList = document.createElement('ul');
+        currentLi.appendChild(subList);
+      }
+      const subLi = document.createElement('li');
+      subLi.appendChild(link);
+      subList.appendChild(subLi);
+    }
   });
 })();
 </script>
