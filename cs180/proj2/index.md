@@ -8,59 +8,115 @@ last_updated: Oct 3, 2025
 <section id="overview">
   <h2 id="overview">Overview</h2>
   <p>
-    This project explores how linear filtering and coarse-to-fine frequency analysis let us sculpt images. I implemented
-    finite-difference edge detectors, derivative-of-Gaussian filters, unsharp masking, the hybrid-image pipeline, Gaussian/Laplacian
-    stacks, and multiresolution blending. This page mirrors the assignment structure so each deliverable slots next to the required
-    figures.
+    This project explores how frequency-based filtering and pyramid representations shape the way we analyze and blend images. Beginning with edge detection and sharpening, I examined how finite differences, derivative-of-Gaussian filters, and unsharp masking isolate or enhance different frequency bands. Extending these ideas, I built hybrid images that reveal one subject up close and another from afar, then used Gaussian and Laplacian stacks to study image structure across scales. Finally, I applied multiresolution blending, where blurred masks and Laplacian pyramids allow two photographs to merge seamlessly. Together, these experiments highlight how simple linear filters and coarse-to-fine analysis can both explain visual perception and enable striking composite effects.
   </p>
   <p class="muted">
-    All figures live in <code>cs180/proj2/assets/</code>. Thumbnails below link to the full-resolution versions for grading.
+    All figures live in <code>cs180/proj2/assets/</code>.
   </p>
-</section>
-
-<section id="implementation">
-  <h2 id="implementation">Implementation Notes</h2>
-  <p>
-    I relied on NumPy for array math and SciPy/scikit-image for Gaussian kernels. Every filter is implemented as a convolution with
-    either separable 1D kernels (for Gaussians) or small finite-difference masks. For stacks and blending I build matrices of images
-    and masks at progressively lower resolutions, normalize each band, then upsample and sum to reconstruct. Frequency-domain plots
-    come from <code>np.fft.fftshift</code> with magnitude log scaling so high-frequency structure is visible.
-  </p>
-  <p>
-    The interactive alignment utility from Project&nbsp;1 reappears here to line up hybrid-image pairs before computing low/high
-    frequency components. All results are stored as float32 in [0, 1] during processing and converted to uint8 only when exporting
-    JPEG/PNG assets for the report.
-  </p>
-
-  <h3 id="core-code">Core filtering snippet</h3>
-  <pre><code class="language-python">
-  <!-- code to be inserted -->
-  </code></pre>
 </section>
 
 <section id="part1">
   <h2 id="part1">Part 1 — Fun with Filters</h2>
 
-  <section id="part1-0">
-    <h3 id="part1-0">1.0 Convolutions from Scratch</h3>
+  <section id="part1-1">
+    <h3>1.1 Convolutions from Scratch</h3>
     <p>
-      I started with a simple 5&times;5 smoothing kernel applied to one of my photos. Convolving with this mean filter removes small
-      blemishes while keeping overall structure, confirming that my padding and convolution utilities behave as expected.
+      I implemented 2D convolution from first principles. I began with a <em>four-loop</em> version
+      (over image rows/cols and kernel rows/cols) using <strong>zero padding</strong>, then reduced it to a
+      <em>two-loop</em> version by pre-flipping the kernel and using vectorized dot products over each local patch.
+      I verified numerical correctness against <code>scipy.signal.convolve2d</code> (mode=<code>'same'</code>, boundary=<code>'fill'</code>, fillvalue=<code>0</code>).
     </p>
+    <div class="codeblock">
+      <h4>Core idea</h4>
+      <pre><code class="language-python">
+  def convolve2d_4loops(img, kernel):
+    H, W = img.shape
+    kh, kw = kernel.shape
+    py, px = kh // 2, kw // 2
+
+    padded = pad_zero(img, py, px)
+    out = np.zeros_like(img)
+
+    for y in range(H):
+        for x in range(W):
+            res = 0.0
+            for dy in range(kh):
+                for dx in range(kw):
+                    res += padded[y + dy, x + dx] * kernel[dy, dx]
+            out[y, x] = res
+    
+    return out
+
+  def convolve2d_2loops(img, kernel):
+    H, W = img.shape
+    kh, kw = kernel.shape
+    py, px = kh // 2, kw // 2
+
+    padded = pad_zero(img, py, px)
+    out = np.zeros_like(img)
+
+    for y in range(H):
+        for x in range(W):
+            window = padded[y:y+kh, x:x+kw]
+            out[y, x] = np.sum(window * kernel)
+
+    return out
+
+      </code></pre>
+    </div>
+    
+    <p>
+      I tested my convolution implementation on a grayscale selfie using three methods.
+      The naïve four-loop version took about <strong>63 seconds</strong>, the optimized two-loop version about
+      <strong>10 seconds</strong>, and the built-in <code>scipy.signal.convolve2d</code> only <strong>0.5 seconds</strong>,
+      illustrating a large performance gap between approaches.
+    </p>
+
+    <h4>Box filter</h4>
+    <p>
+      A box (mean) filter replaces each pixel with the average of its neighbors. For a 9&times;9 box,
+      each output is the average of an 81-pixel window. This smooths noise and fine texture while preserving overall
+      structure&mdash;at first glance the image looks similar, but edges and skin detail are noticeably softened.
+    </p>
+
     <div class="pair">
       <figure>
-        <img class="fit" src="./assets/part1_1/jli_original.jpg" alt="Original portrait" />
-        <figcaption>Original portrait.</figcaption>
+        <img class="fit" src="./assets/part1_1/jli_original.jpg" alt="Original (grayscale)" />
+        <figcaption>Original (grayscale)</figcaption>
       </figure>
       <figure>
-        <img class="fit" src="./assets/part1_1/jli_filtered.jpg" alt="Filtered portrait" />
-        <figcaption>After 5&times;5 mean filtering (detail softened).</figcaption>
+        <img class="fit" src="./assets/part1_1/jli_filtered.jpg" alt="9×9 box filtered" />
+        <figcaption>After 9&times;9 box filter (fine details blurred)</figcaption>
       </figure>
     </div>
+
+    <h4>Finite difference operators Dx, Dy</h4>
+    <p>
+      The finite difference kernels approximate horizontal (Dx) and vertical (Dy) derivatives and therefore highlight
+      intensity changes (edges). The Dx response emphasizes vertical edges (it measures horizontal changes), while
+      Dy emphasizes horizontal edges.
+    </p>
+
+    <div class="pair">
+      <figure>
+        <img class="fit" src="./assets/part1_1/jli_dx.jpg" alt="Dx response" />
+        <figcaption>Horizontal derivative (Dx)&nbsp;&mdash; shows vertical edges</figcaption>
+      </figure>
+      <figure>
+        <img class="fit" src="./assets/part1_1/jli_dy.jpg" alt="Dy response" />
+        <figcaption>Vertical derivative (Dy)&nbsp;&mdash; shows horizontal edges</figcaption>
+      </figure>
+    </div>
+
+    <p class="note">
+      Padding is zero-fill to match the assignment and <code>convolve2d(..., boundary='fill', fillvalue=0)</code>.
+      Values are processed in float and clipped only when saving for display.
+    </p>
   </section>
 
-  <section id="part1-1">
-    <h3 id="part1-1">1.1 Finite difference operator</h3>
+
+  <section id="part1-2">
+    <h3 id="part1-2">1.2 Finite Difference Operator</h3>
     <p>
       I applied horizontal and vertical finite-difference kernels <code>[-1, 1]</code> and its transpose to the classic Cameraman image.
       Taking the absolute gradient magnitude reveals strong edges, but direct differencing amplifies sensor noise. Thresholding the
@@ -90,8 +146,8 @@ last_updated: Oct 3, 2025
     </div>
   </section>
 
-  <section id="part1-2">
-    <h3 id="part1-2">1.2 Derivative of Gaussian (DoG)</h3>
+  <section id="part1-3">
+    <h3 id="part1-3">1.3 Derivative of Gaussian (DoG) Filter</h3>
     <p>
       Blurring before differentiating damps high-frequency noise. Instead of a two-pass blur-then-differentiate, I convolve the
       finite-difference filters with a Gaussian (&#963; = 1.0) to produce derivative-of-Gaussian kernels. Using DoG drastically cleans
