@@ -273,27 +273,28 @@ last_updated: Oct 3, 2025
       clear structural contrast improves, while sub-pixel foliage detail does not fully return.
     </p>
     <div class="grid3">
-      <figure>
+      <article class="card"><figure>
         <img class="fit" src="./assets/part2_1_sharpen/tree/tree.jpeg" alt="Tree original" />
         <figcaption>Original.</figcaption>
-      </figure>
-      <figure>
+      </figure></article>
+      <article class="card"><figure>
         <img class="fit" src="./assets/part2_1_sharpen/tree/tree_blurred.jpg" alt="Tree blurred" />
         <figcaption>Blurred baseline (&sigma; = 1.0).</figcaption>
-      <figure>
+      </figure></article>
+      <article class="card"><figure>
         <img class="fit" src="./assets/part2_1_sharpen/tree/tree_high_freq.jpg" alt="Tree high frequency" />
         <figcaption>High-frequency layer.</figcaption>
-      </figure>
+      </figure></article>
     </div>
     <div class="pair">
-      <figure>
+      <article class="card"><figure>
         <img class="fit" src="./assets/part2_1_sharpen/tree/tree.jpeg" alt="Tree original" />
         <figcaption>Original.</figcaption>
-      </figure>
-      <figure>
+      </figure></article>
+      <article class="card"><figure>
         <img class="fit" src="./assets/part2_1_sharpen/tree/tree_sharp.jpg" alt="Tree sharpened" />
         <figcaption>Sharpened (&alpha; = 6.0) &mdash; stronger branches, some fine leaves suppressed.</figcaption>
-      </figure>
+      </figure></article>
     </div>
     <p class="note">
       Parameter notes: I used &sigma; between 1&ndash;2 and varied &alpha; between 1&ndash;6. Larger &alpha; increases
@@ -302,95 +303,132 @@ last_updated: Oct 3, 2025
   </section>
 
 
-  <section id="part2-2">
-    <h3 id="part2-2">2.2 Hybrid images</h3>
-    <p>
-      Hybrid images combine low frequencies from one subject with high frequencies from another. My pipeline aligns each pair,
-      applies Gaussian low-pass/high-pass filters (cutoffs around 9–11 pixels), and recombines them. Viewing up close reveals the
-      high-frequency subject; stepping back reveals the low-frequency subject. I include frequency-magnitude plots for one pair to
-      show how information occupies complementary bands.
-    </p>
-    <h4 id="hybrid-derek">Derek &amp; Nutmeg</h4>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/DerekPicture_aligned.png" alt="Derek low" />
-        <figcaption>Derek (low frequencies).</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/nut_aligned.jpg" alt="Nutmeg high" />
-        <figcaption>Nutmeg (high frequencies).</figcaption>
-      </figure>
-    </div>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/hybrid.jpg" alt="Hybrid Derek Nutmeg" />
-        <figcaption>Hybrid result — Nutmeg up close, Derek from afar.</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/derek_aligned.jpg" alt="Alignment debug" />
-        <figcaption>Alignment overlay check (channels stacked).</figcaption>
-      </figure>
-    </div>
+<section id="part2-2">
+  <h3>2.2 Hybrid Images</h3>
+  <p>
+    Hybrid images combine the <em>low frequencies</em> of one picture with the <em>high frequencies</em> of another.
+    Up close, the viewer perceives the high-frequency image; from far away, the low-frequency image dominates. This effect
+    illustrates how our visual system interprets spatial frequency content.
+  </p>
 
-    <h4 id="hybrid-binotto">Frederic Vasseur &amp; Binotto the Clown</h4>
-    <p>
-      This playful pair uses a low-pass portrait of Ferrari team principal Frédéric Vasseur and the high-pass features of a clown.
-      The combination exaggerates the smile and hat while keeping the lighting from the portrait.
-    </p>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/binotto_aligned.png" alt="Binotto low" />
-        <figcaption>Low-pass portrait.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/clown_high.png" alt="Clown high" />
-        <figcaption>High-pass clown details.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/binotto_clown.png" alt="Hybrid result" />
-        <figcaption>Hybrid — the clown grin mapped onto Binotto.</figcaption>
-      </figure></article>
-    </div>
+  <!-- Derek + Nutmeg -->
+  <h4>Derek + Nutmeg (assignment example)</h4>
+  <p>
+    This is the canonical example provided by the assignment. Derek contributes low-frequency structure, while Nutmeg
+    provides high-frequency detail. The result shifts perception depending on viewing distance, validating the hybrid
+    image concept.
+  </p>
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/DerekPicture_aligned.png" alt="Derek aligned" />
+      <figcaption>Derek Original (aligned)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/nut_aligned.jpg" alt="Nutmeg aligned" />
+      <figcaption>Nutmeg Original (aligned)</figcaption>
+    </figure>
+  </div>
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/derek_low.png" alt="Derek aligned" />
+      <figcaption>Derek (low-pass)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/nut_high.jpg" alt="Nutmeg aligned" />
+      <figcaption>Nutmeg (high-pass)</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/hybrid.jpg" alt="Hybrid Derek + Nutmeg" />
+    <figcaption>Hybrid image: Nutmeg up close, Derek from a distance.</figcaption>
+  </figure>
 
-    <h4 id="hybrid-sauber">Sauber C44 &amp; Tractor</h4>
-    <p>
-      Motorsports meets farming equipment: the low frequencies come from a Sauber C44 Formula&nbsp;1 car, the high frequencies from a
-      tractor. The FFT visualizations confirm the low-pass filter concentrates energy near the origin while the high-pass spectrum
-      surrounds it with a hollow annulus.
-    </p>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_aligned.png" alt="Sauber low" />
-        <figcaption>Sauber (low frequency).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_high.png" alt="Tractor high" />
-        <figcaption>Tractor (high frequency).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor.png" alt="Hybrid car tractor" />
-        <figcaption>Hybrid — from afar it reads as the car.</figcaption>
-      </figure></article>
-    </div>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_fft.png" alt="Sauber FFT" />
-        <figcaption>Low-pass FFT (energy near DC).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_fft.png" alt="Tractor FFT" />
-        <figcaption>Source FFT with broader support.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor_fft.png" alt="Hybrid FFT" />
-        <figcaption>Hybrid FFT, combining both bands.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_aligned_fft.png" alt="High-pass FFT" />
-        <figcaption>High-pass FFT (hollow annulus).</figcaption>
-      </figure></article>
-    </div>
-  </section>
+  <!-- Sauber + Tractor -->
+  <h4>Sauber C44 + Tractor (the “Green Tractor” meme)</h4>
+  <p>
+    As a Formula&nbsp;1 fan, I chose this hybrid to represent the 2024 Sauber C44. The car was notoriously slow, scoring
+    only once all season (thanks to ZHOU Guanyu). Fans joked it was more like a <q>green tractor</q> than a Formula&nbsp;1 car.
+    Here the C44 provides low-frequency structure, while a green tractor contributes high-frequency details. This produces
+    a image that visually supports the meme.
+  </p>
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_aligned.png" alt="Sauber aligned" />
+      <figcaption>Sauber C44 Original (aligned)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_aligned.png" alt="Tractor aligned" />
+      <figcaption>Green Tractor Original (aligned)</figcaption>
+    </figure>
+  </div>
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_low.png" alt="Sauber aligned" />
+      <figcaption>Sauber C44 (low-pass)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_high.png" alt="Tractor aligned" />
+      <figcaption> Green Tractor (high-pass)</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor.png" alt="Hybrid Sauber + Tractor" />
+    <figcaption>Hybrid image: C44 body with tractor detail.</figcaption>
+  </figure>
+  <p>
+    To illustrate the effect in the frequency domain, I also plot the FFT magnitudes. The low-pass Sauber spectrum shows
+    concentration at the center (low frequencies), while the high-pass tractor spectrum spreads into the periphery. The
+    hybrid FFT combines these, confirming how Gaussian filtering redistributes energy across frequency bands.
+  </p>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_fft.png" alt="FFT Sauber" />
+      <figcaption>FFT of Sauber (low frequencies dominate center)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_fft.png" alt="FFT Tractor" />
+      <figcaption>FFT of Tractor (high frequencies dominate edges)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor_fft.png" alt="FFT Hybrid" />
+      <figcaption>FFT of Hybrid (mixture of both)</figcaption>
+    </figure>
+  </div>
+
+  <!-- Binotto + Clown -->
+  <h4>Binotto + Clown (Ferrari strategy meme)</h4>
+  <p>
+    Mattia Binotto, Ferrari’s former team principal, became infamous for poor race strategies that undermined great cars
+    and drivers. Fans called him the <q>principal clown</q> of Formula&nbsp;1. After leaving Ferrari, he later joined Sauber,
+    making the hybrid with a clown face an apt metaphor. Here Binotto’s portrait is low-pass, while a clown overlay provides
+    the high-frequency features.
+  </p>
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/binotto_aligned.png" alt="Binotto aligned" />
+      <figcaption>Binotto Original (aligned)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/clown_aligned.png" alt="Clown aligned" />
+      <figcaption>Clown  Original (aligned)</figcaption>
+    </figure>
+  </div>
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/binotto_low.png" alt="Binotto aligned" />
+      <figcaption>Binotto (low-pass)</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/clown_high.png" alt="Clown aligned" />
+      <figcaption>Clown (high-pass)</figcaption>
+    </figure>
+  </div>
+  <figure>
+    <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/binotto_clown.png" alt="Hybrid Binotto + Clown" />
+    <figcaption>Hybrid image: Binotto up close, clown from a distance.</figcaption>
+  </figure>
+</section>
+
 
   <section id="part2-3">
     <h3 id="part2-3">2.3 Gaussian and Laplacian stacks</h3>
