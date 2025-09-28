@@ -71,7 +71,8 @@
   .toc-title{ font-weight:600; margin-bottom:8px; font-size:.95rem; color:var(--muted); }
   .toc-list{ display:block; }
   .toc-list ul{ list-style:none; margin:0; padding:0; }
-  .toc-list li{ margin:4px 0; }
+  .toc-list li{ margin:4px 0; list-style:none; }
+  .toc-list li::marker{ content: none; }
   .toc-list > ul > li > a{ font-weight:600; }
   .toc-list a{ display:block; color:var(--fg); font-size:.96rem; line-height:1.4; }
   .toc-list a:hover{ color:var(--link); }
@@ -80,8 +81,8 @@
   .toc-list ul ul a:hover{ color:var(--link); }
 
   .project-main section{ margin: 18px 0; }
-  .project-main h2{ font-size: 1.35rem; margin: 0 0 12px; }
-  .project-main h3{ font-size: 1.12rem; margin: 16px 0 8px; }
+  .project-main h2{ font-size: 1.6rem; margin: 0 0 14px; line-height:1.3; }
+  .project-main h3{ font-size: 1.2rem; margin: 18px 0 10px; line-height:1.35; }
   figure{ margin: 0; }
   figcaption{ color: var(--muted); font-size: .92rem; margin-top: 6px; }
   

@@ -42,7 +42,7 @@ last_updated: Oct 3, 2025
   <h2 id="part1">Part 1 — Fun with Filters</h2>
 
   <section id="part1-0">
-    <h3 id="part1-0">1.0 Warmup: Custom 2D filtering</h3>
+    <h3 id="part1-0">1.0 Convolutions from Scratch</h3>
     <p>
       I started with a simple 5&times;5 smoothing kernel applied to one of my photos. Convolving with this mean filter removes small
       blemishes while keeping overall structure, confirming that my padding and convolution utilities behave as expected.
