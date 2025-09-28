@@ -15,6 +15,7 @@ last_updated: Oct 3, 2025
   </p>
 </section>
 
+
 <section id="part1">
   <h2 id="part1">Part 1 — Fun with Filters</h2>
 
@@ -117,94 +118,86 @@ last_updated: Oct 3, 2025
   </section>
 
 
- <section id="part1-2">
-  <h3 id="part1-2">1.2 Finite Difference Operator</h3>
-  <p>
-    To detect edges, I applied the simplest finite-difference kernels: <code>[-1, 1]</code> for the horizontal direction
-    and its transpose for the vertical direction. Convolving the Cameraman image with these filters measures
-    horizontal and vertical intensity changes. The resulting derivative images highlight edges aligned with each axis.
-  </p>
+  <section id="part1-2">
+    <h3 id="part1-2">1.2 Finite Difference Operator</h3>
+    <p>
+      To detect edges, I applied the simplest finite-difference kernels: <code>[-1, 1]</code> for the horizontal direction
+      and its transpose for the vertical direction. Convolving the Cameraman image with these filters measures
+      horizontal and vertical intensity changes. The resulting derivative images highlight edges aligned with each axis.
+    </p>
+    <div class="grid3">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_2/input/cameraman.png" alt="Cameraman input" />
+        <figcaption>Original Cameraman image.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_2/cam_dx.jpg" alt="Horizontal derivative" />
+        <figcaption>Horizontal derivative (Dx).</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_2/cam_dy.jpg" alt="Vertical derivative" />
+        <figcaption>Vertical derivative (Dy).</figcaption>
+      </figure></article>
+    </div>
+    <p>
+      Combining the two responses yields the gradient magnitude, which shows overall edge strength in the image.
+      However, direct differencing is highly sensitive to high-frequency noise. In my experiment, faint texture
+      and sensor noise were also emphasized along with boundaries.
+    </p>
+    <p>
+      To focus on the most significant features, I thresholded the gradient magnitude at about <code>0.25</code>.
+      This produces a cleaner binary edge map, where the outline of the cameraman and key scene structures are visible
+      without much noises.
+    </p>
+    <div class="pair">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_2/cam_edge_noise.jpg" alt="Gradient magnitude" />
+        <figcaption>Gradient magnitude — edges with amplified noise.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Binary edge map" />
+        <figcaption>Binary edge map (threshold ≈ 0.25).</figcaption>
+      </figure></article>
+    </div>
+  </section>
 
-  <div class="grid3">
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_2/input/cameraman.png" alt="Cameraman input" />
-      <figcaption>Original Cameraman image.</figcaption>
-    </figure></article>
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_2/cam_dx.jpg" alt="Horizontal derivative" />
-      <figcaption>Horizontal derivative (Dx).</figcaption>
-    </figure></article>
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_2/cam_dy.jpg" alt="Vertical derivative" />
-      <figcaption>Vertical derivative (Dy).</figcaption>
-    </figure></article>
-  </div>
-
-  <p>
-    Combining the two responses yields the gradient magnitude, which shows overall edge strength in the image.
-    However, direct differencing is highly sensitive to high-frequency noise. In my experiment, faint texture
-    and sensor noise were also emphasized along with boundaries.
-  </p>
-  <p>
-    To focus on the most significant features, I thresholded the gradient magnitude at about <code>0.25</code>.
-    This produces a cleaner binary edge map, where the outline of the cameraman and key scene structures are visible
-    without much noises.
-  </p>
-
-  <div class="pair">
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_2/cam_edge_noise.jpg" alt="Gradient magnitude" />
-      <figcaption>Gradient magnitude — edges with amplified noise.</figcaption>
-    </figure></article>
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Binary edge map" />
-      <figcaption>Binary edge map (threshold ≈ 0.25).</figcaption>
-    </figure></article>
-  </div>
+  <section id="part1-3">
+    <h3 id="part1-3">1.3 Derivative of Gaussian (DoG) Filter</h3>
+    <p>
+      Direct finite differences highlight edges but also amplify high-frequency noise. A common fix is to smooth
+      the image <em>before</em> differentiating. Instead of running two separate passes (Gaussian blur then
+      difference), we can convolve the finite-difference kernels with a Gaussian (&#963; = 1.0) to form
+      <strong>Derivative-of-Gaussian (DoG)</strong> filters that both smooth and differentiate in one step.
+    </p>
+    <div class="pair">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_3/dxog.png" alt="DoG dx" />
+        <figcaption>DoG kernel: <em>d/dx</em> of a Gaussian (&#963; = 1.0).</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_3/dyog.png" alt="DoG dy" />
+        <figcaption>DoG kernel: <em>d/dy</em> of a Gaussian (&#963; = 1.0).</figcaption>
+      </figure></article>
+    </div>
+    <p>
+      Compared to the raw gradient magnitude from Part&nbsp;1.2 (even after thresholding), DoG produces cleaner,
+      more continuous edges. Although simple thresholding on the raw gradients is
+      surprisingly strong, some background speckle still remains. DoG suppresses much of that residual noise and
+      yields a smoother binary edge map.
+    </p>
+    <div class="pair">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Binary edge map" />
+        <figcaption>Finite-difference edges after thresholding — strong outlines but still noisy.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part1_3/cam_dog_binarize.jpg" alt="DoG edges" />
+        <figcaption>DoG + thresholding — cleaner boundaries and reduced background speckle.</figcaption>
+      </figure></article>
+    </div>
+  </section>
 </section>
 
-
-<section id="part1-3">
-  <h3 id="part1-3">1.3 Derivative of Gaussian (DoG) Filter</h3>
-  <p>
-    Direct finite differences highlight edges but also amplify high-frequency noise. A common fix is to smooth
-    the image <em>before</em> differentiating. Instead of running two separate passes (Gaussian blur then
-    difference), we can convolve the finite-difference kernels with a Gaussian (&#963; = 1.0) to form
-    <strong>Derivative-of-Gaussian (DoG)</strong> filters that both smooth and differentiate in one step.
-  </p>
-
-  <div class="pair">
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_3/dxog.png" alt="DoG dx" />
-      <figcaption>DoG kernel: <em>d/dx</em> of a Gaussian (&#963; = 1.0).</figcaption>
-    </figure></article>
-    <article class="card"><figure>
-      <img class="fit" src="./assets/part1_3/dyog.png" alt="DoG dy" />
-      <figcaption>DoG kernel: <em>d/dy</em> of a Gaussian (&#963; = 1.0).</figcaption>
-    </figure></article>
-  </div>
-
-  <p>
-    Compared to the raw gradient magnitude from Part&nbsp;1.2 (even after thresholding), DoG produces cleaner,
-    more continuous edges. Although simple thresholding on the raw gradients is
-    surprisingly strong, some background speckle still remains. DoG suppresses much of that residual noise and
-    yields a smoother binary edge map.
-  </p>
-
-<div class="pair">
-  <article class="card"><figure>
-    <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Binary edge map" />
-    <figcaption>Finite-difference edges after thresholding — strong outlines but still noisy.</figcaption>
-  </figure></article>
-  <article class="card"><figure>
-    <img class="fit" src="./assets/part1_3/cam_dog_binarize.jpg" alt="DoG edges" />
-    <figcaption>DoG + thresholding — cleaner boundaries and reduced background speckle.</figcaption>
-  </figure></article>
-</div>
-
-</section>
-
-</section>
 
 <section id="part2">
   <h2 id="part2">Part 2 — Fun with Frequencies</h2>
@@ -214,11 +207,12 @@ last_updated: Oct 3, 2025
     <p>
       I implement sharpening with <em>unsharp masking</em>: blur the image with a Gaussian, subtract to obtain the
       high-frequency layer, then add a scaled version of that layer back to the original. This boosts edges and textures:
-      <code>low = gauss(I, &sigma;)</code>, <code>high = I - low</code>, <code>I<sub>sharp</sub> = I + &alpha;&middot;high</code>.
-      I keep everything in float and clip only for display.
+    </p>
+    <p>
+      <code>low = gauss(I, &sigma;)</code>, <code>high = I - low</code>, <code>I<sub>sharp</sub> = I + &alpha;&middot;high</code>
     </p>
     <!-- TAJ — full process -->
-    <h4 id="sharpen-taj">Taj Mahal &mdash; blur &rarr; high-frequency &rarr; sharpen</h4>
+    <h4 id="sharpen-taj">Taj Mahal</h4>
     <p class="muted">Blur with &sigma; = 2.0. Two strengths shown: &alpha; = 3.0 and &alpha; = 6.0.</p>
     <div class="grid3">
       <article class="card"><figure>
@@ -231,7 +225,7 @@ last_updated: Oct 3, 2025
       </figure></article>
       <article class="card"><figure>
         <img class="fit" src="./assets/part2_1_sharpen/taj/taj_high_freq.jpg" alt="Taj high frequency" />
-        <figcaption>High-frequency layer (I - low).</figcaption>
+        <figcaption>High-frequency layer.</figcaption>
       </figure></article>
     </div>
     <div class="pair">
@@ -245,7 +239,7 @@ last_updated: Oct 3, 2025
       </figure></article>
     </div>
     <!-- VIEW — show high layer and two strengths -->
-    <h4 id="sharpen-view">Skógafoss waterfall &mdash; strength comparison</h4>
+    <h4 id="sharpen-view">Skógafoss waterfall</h4>
     <p class="muted">Same procedure with &sigma; = 2.0. Compare &alpha; = 1.0 vs. &alpha; = 3.0.</p>
     <div class="grid3">
       <article class="card"><figure>
@@ -307,65 +301,6 @@ last_updated: Oct 3, 2025
     </p>
   </section>
 
-
-  <section id="part2-1">
-    <h3 id="part2-1">2.1 Image sharpening</h3>
-    <p>
-      I implemented unsharp masking by subtracting a Gaussian blur (&#963; = 2) scaled by an amount <code>&alpha;</code> from the original image.
-      The tree example uses <code>&alpha; = 1.0</code>, while the Taj Mahal and the Berkeley hills panorama explore stronger settings of 3 and 6.
-      The blurred intermediate and isolated high frequencies help visualize what gets amplified.
-    </p>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_1_sharpen/input/tree.jpeg" alt="Tree original" />
-        <figcaption>Tree — original.</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_1_sharpen/tree_blurred.jpg" alt="Tree blurred" />
-        <figcaption>Gaussian blur (&#963; = 2).</figcaption>
-      </figure>
-    </div>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_1_sharpen/tree_sharp.jpg" alt="Tree sharpened" />
-        <figcaption>Sharpened result (&#945;=1.0).</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_1_sharpen/view_high_freq.jpg" alt="High-frequency" />
-        <figcaption>Extracted high-frequency layer for the hills panorama.</figcaption>
-      </figure>
-    </div>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/input/view.jpg" alt="View original" />
-        <figcaption>Panorama — original.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/view_blurred.jpg" alt="View blurred" />
-        <figcaption>Blurred baseline.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/view_sharp_1.jpg" alt="View sharp 1" />
-        <figcaption>Sharpened with &#945;=1.0.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/view_sharp_3.jpg" alt="View sharp 3" />
-        <figcaption>Sharpened with &#945;=3.0 (crisper but slightly haloed).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/input/taj.jpg" alt="Taj original" />
-        <figcaption>Taj Mahal — original.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/taj_sharp_3.jpg" alt="Taj sharp 3" />
-        <figcaption>&#945;=3.0 (balanced).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_1_sharpen/taj_sharp_6.jpg" alt="Taj sharp 6" />
-        <figcaption>&#945;=6.0 (aggressive, halos visible).</figcaption>
-      </figure></article>
-    </div>
-  </section>
 
   <section id="part2-2">
     <h3 id="part2-2">2.2 Hybrid images</h3>
