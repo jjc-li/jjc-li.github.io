@@ -29,6 +29,10 @@ last_updated: Oct 3, 2025
     <div class="codeblock">
       <h4>Core idea</h4>
       <pre><code class="language-python">
+  def pad_zero(img, pad_y, pad_x):
+  """Helper function to pad zero around image"""
+    return np.pad(img, ((pad_y, pad_y), (pad_x, pad_x)), mode='constant')
+  
   def convolve2d_4loops(img, kernel):
     H, W = img.shape
     kh, kw = kernel.shape
@@ -204,6 +208,105 @@ last_updated: Oct 3, 2025
 
 <section id="part2">
   <h2 id="part2">Part 2 — Fun with Frequencies</h2>
+
+  <section id="part2-1">
+    <h3 id="part2-1">2.1 Image Sharpening</h3>
+    <p>
+      I implement sharpening with <em>unsharp masking</em>: blur the image with a Gaussian, subtract to obtain the
+      high-frequency layer, then add a scaled version of that layer back to the original. This boosts edges and textures:
+      <code>low = gauss(I, &sigma;)</code>, <code>high = I - low</code>, <code>I<sub>sharp</sub> = I + &alpha;&middot;high</code>.
+      I keep everything in float and clip only for display.
+    </p>
+    <!-- TAJ — full process -->
+    <h4 id="sharpen-taj">Taj Mahal &mdash; blur &rarr; high-frequency &rarr; sharpen</h4>
+    <p class="muted">Blur with &sigma; = 2.0. Two strengths shown: &alpha; = 3.0 and &alpha; = 6.0.</p>
+    <div class="grid3">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/taj/taj.jpg" alt="Taj original" />
+        <figcaption>Original.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/taj/taj_blurred.jpg" alt="Taj blurred" />
+        <figcaption>Gaussian blur (&sigma; = 2.0).</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/taj/taj_high_freq.jpg" alt="Taj high frequency" />
+        <figcaption>High-frequency layer (I - low).</figcaption>
+      </figure></article>
+    </div>
+    <div class="pair">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/taj/taj_sharp_3.jpg" alt="Taj sharp alpha 3" />
+        <figcaption>Sharpened (&alpha; = 3.0) &mdash; crisper details.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/taj/taj_sharp_6.jpg" alt="Taj sharp alpha 6" />
+        <figcaption>Sharpened (&alpha; = 6.0) &mdash; very sharp details.</figcaption>
+      </figure></article>
+    </div>
+    <!-- VIEW — show high layer and two strengths -->
+    <h4 id="sharpen-view">Skógafoss waterfall &mdash; strength comparison</h4>
+    <p class="muted">Same procedure with &sigma; = 2.0. Compare &alpha; = 1.0 vs. &alpha; = 3.0.</p>
+    <div class="grid3">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/view/view.jpg" alt="View original" />
+        <figcaption>Original.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/view/view_blurred.jpg" alt="View blurred" />
+        <figcaption>Blurred baseline (&sigma; = 2.0).</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/view/view_high_freq.jpg" alt="View high frequency" />
+        <figcaption>High-frequency layer.</figcaption>
+      </figure></article>
+    </div>
+    <div class="pair">
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/view/view_sharp_1.jpg" alt="View sharp alpha 1" />
+        <figcaption>Sharpened (&alpha; = 1.0) &mdash; natural.</figcaption>
+      </figure></article>
+      <article class="card"><figure>
+        <img class="fit" src="./assets/part2_1_sharpen/view/view_sharp_3.jpg" alt="View sharp alpha 3" />
+        <figcaption>Sharpened (&alpha; = 3.0) &mdash; the details are excessively sharpened.</figcaption>
+      </figure></article>
+    </div>
+    <!-- TREE — before/after with note about leaves -->
+    <h4 id="sharpen-tree">Pine Tree &mdash; effect on fine foliage</h4>
+    <p>
+      Here I focus on the visual trade-off. Sharpening strengthens the main branches and trunk edges, but some fine
+      needles are partially lost (the Gaussian blur removes it before amplification). This is a typical outcome:
+      clear structural contrast improves, while sub-pixel foliage detail does not fully return.
+    </p>
+    <div class="grid3">
+      <figure>
+        <img class="fit" src="./assets/part2_1_sharpen/tree/tree.jpeg" alt="Tree original" />
+        <figcaption>Original.</figcaption>
+      </figure>
+      <figure>
+        <img class="fit" src="./assets/part2_1_sharpen/tree/tree_blurred.jpg" alt="Tree blurred" />
+        <figcaption>Blurred baseline (&sigma; = 1.0).</figcaption>
+      <figure>
+        <img class="fit" src="./assets/part2_1_sharpen/tree/tree_high_freq.jpg" alt="Tree high frequency" />
+        <figcaption>High-frequency layer.</figcaption>
+      </figure>
+    </div>
+    <div class="pair">
+      <figure>
+        <img class="fit" src="./assets/part2_1_sharpen/tree/tree.jpeg" alt="Tree original" />
+        <figcaption>Original.</figcaption>
+      </figure>
+      <figure>
+        <img class="fit" src="./assets/part2_1_sharpen/tree/tree_sharp.jpg" alt="Tree sharpened" />
+        <figcaption>Sharpened (&alpha; = 6.0) &mdash; stronger branches, some fine leaves suppressed.</figcaption>
+      </figure>
+    </div>
+    <p class="note">
+      Parameter notes: I used &sigma; between 1&ndash;2 and varied &alpha; between 1&ndash;6. Larger &alpha; increases
+      apparent sharpness but can introduce halos/noise; moderate values (&alpha; = 1&ndash;3) look most natural.
+    </p>
+  </section>
+
 
   <section id="part2-1">
     <h3 id="part2-1">2.1 Image sharpening</h3>
