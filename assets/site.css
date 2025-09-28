@@ -105,4 +105,17 @@
   /* Two-up comparison */
   .pair{ display:grid; gap:10px; grid-template-columns:1fr 1fr; }
   @media (max-width:760px){ .pair{ grid-template-columns:1fr; } }
+
+  /* three-up grid */
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;          /* match your site spacing */
+  }
+
+  /* stack on narrow screens */
+  @media (max-width: 900px) {
+    .grid3 { grid-template-columns: 1fr; }
+  }
+
   
