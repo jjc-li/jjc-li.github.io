@@ -148,6 +148,7 @@ last_updated: Oct 3, 2025
   </p>
 
   <div class="pair">
+    <article class="card"><figure>
       <img class="fit" src="./assets/part1_2/cam_edge_noise.jpg" alt="Gradient magnitude" />
       <figcaption>Gradient magnitude — edges with amplified noise.</figcaption>
     </figure></article>
