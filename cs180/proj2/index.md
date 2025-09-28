@@ -22,8 +22,8 @@ last_updated: Oct 3, 2025
     <h3>1.1 Convolutions from Scratch</h3>
     <p>
       I implemented 2D convolution from first principles. I began with a <em>four-loop</em> version
-      (over image rows/cols and kernel rows/cols) using <strong>zero padding</strong>, then reduced it to a
-      <em>two-loop</em> version by pre-flipping the kernel and using vectorized dot products over each local patch.
+      (over image rows/cols and kernel rows/cols) using zero padding, then reduced it to a
+      <em>two-loop</em> version using vectorized dot products over each local patch.
       I verified numerical correctness against <code>scipy.signal.convolve2d</code> (mode=<code>'same'</code>, boundary=<code>'fill'</code>, fillvalue=<code>0</code>).
     </p>
     <div class="codeblock">
@@ -44,7 +44,6 @@ last_updated: Oct 3, 2025
                 for dx in range(kw):
                     res += padded[y + dy, x + dx] * kernel[dy, dx]
             out[y, x] = res
-    
     return out
 
   def convolve2d_2loops(img, kernel):
@@ -59,7 +58,6 @@ last_updated: Oct 3, 2025
         for x in range(W):
             window = padded[y:y+kh, x:x+kw]
             out[y, x] = np.sum(window * kernel)
-
     return out
 
       </code></pre>
@@ -115,60 +113,92 @@ last_updated: Oct 3, 2025
   </section>
 
 
-  <section id="part1-2">
-    <h3 id="part1-2">1.2 Finite Difference Operator</h3>
-    <p>
-      I applied horizontal and vertical finite-difference kernels <code>[-1, 1]</code> and its transpose to the classic Cameraman image.
-      Taking the absolute gradient magnitude reveals strong edges, but direct differencing amplifies sensor noise. Thresholding the
-      magnitude at 0.18 produces a binary edge map aligned with textbook results.
-    </p>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_2/input/cameraman.png" alt="Cameraman" />
-        <figcaption>Input.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_2/cam_dx.jpg" alt="dx" />
-        <figcaption>Horizontal derivative.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_2/cam_dy.jpg" alt="dy" />
-        <figcaption>Vertical derivative.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_2/cam_edge_noise.jpg" alt="Gradient magnitude" />
-        <figcaption>Gradient magnitude (note amplified noise).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Thresholded edges" />
-        <figcaption>Binary edge map (threshold&nbsp;&approx;&nbsp;0.18).</figcaption>
-      </figure></article>
-    </div>
-  </section>
+ <section id="part1-2">
+  <h3 id="part1-2">1.2 Finite Difference Operator</h3>
+  <p>
+    To detect edges, I applied the simplest finite-difference kernels: <code>[-1, 1]</code> for the horizontal direction
+    and its transpose for the vertical direction. Convolving the Cameraman image with these filters measures
+    horizontal and vertical intensity changes. The resulting derivative images highlight edges aligned with each axis.
+  </p>
 
-  <section id="part1-3">
-    <h3 id="part1-3">1.3 Derivative of Gaussian (DoG) Filter</h3>
-    <p>
-      Blurring before differentiating damps high-frequency noise. Instead of a two-pass blur-then-differentiate, I convolve the
-      finite-difference filters with a Gaussian (&#963; = 1.0) to produce derivative-of-Gaussian kernels. Using DoG drastically cleans
-      up the gradient magnitude while preserving edge localization, so the binarized edge map is much smoother than the direct
-      difference result.
-    </p>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_3/dxog.png" alt="DoG dx" />
-        <figcaption>d/dx of Gaussian kernel.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_3/dyog.png" alt="DoG dy" />
-        <figcaption>d/dy of Gaussian kernel.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part1_3/cam_dog_binarize.jpg" alt="DoG edges" />
-        <figcaption>Edges after DoG + thresholding. Noise is greatly reduced.</figcaption>
-      </figure></article>
-    </div>
-  </section>
+  <div class="grid3">
+    <article class="card"><figure>
+      <img class="fit" src="./assets/part1_2/input/cameraman.png" alt="Cameraman input" />
+      <figcaption>Original Cameraman image.</figcaption>
+    </figure></article>
+    <article class="card"><figure>
+      <img class="fit" src="./assets/part1_2/cam_dx.jpg" alt="Horizontal derivative" />
+      <figcaption>Horizontal derivative (Dx).</figcaption>
+    </figure></article>
+    <article class="card"><figure>
+      <img class="fit" src="./assets/part1_2/cam_dy.jpg" alt="Vertical derivative" />
+      <figcaption>Vertical derivative (Dy).</figcaption>
+    </figure></article>
+  </div>
+
+  <p>
+    Combining the two responses yields the gradient magnitude, which shows overall edge strength in the image.
+    However, direct differencing is highly sensitive to high-frequency noise. In my experiment, faint texture
+    and sensor noise were also emphasized along with boundaries.
+  </p>
+  <p>
+    To focus on the most significant features, I thresholded the gradient magnitude at about <code>0.25</code>.
+    This produces a cleaner binary edge map, where the outline of the cameraman and key scene structures are visible
+    without much noises.
+  </p>
+
+  <div class="pair">
+      <img class="fit" src="./assets/part1_2/cam_edge_noise.jpg" alt="Gradient magnitude" />
+      <figcaption>Gradient magnitude — edges with amplified noise.</figcaption>
+    </figure></article>
+    <article class="card"><figure>
+      <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Binary edge map" />
+      <figcaption>Binary edge map (threshold ≈ 0.25).</figcaption>
+    </figure></article>
+  </div>
+</section>
+
+
+<section id="part1-3">
+  <h3 id="part1-3">1.3 Derivative of Gaussian (DoG) Filter</h3>
+  <p>
+    Direct finite differences highlight edges but also amplify high-frequency noise. A common fix is to smooth
+    the image <em>before</em> differentiating. Instead of running two separate passes (Gaussian blur then
+    difference), we can convolve the finite-difference kernels with a Gaussian (&#963; = 1.0) to form
+    <strong>Derivative-of-Gaussian (DoG)</strong> filters that both smooth and differentiate in one step.
+  </p>
+
+  <div class="pair">
+    <article class="card"><figure>
+      <img class="fit" src="./assets/part1_3/dxog.png" alt="DoG dx" />
+      <figcaption>DoG kernel: <em>d/dx</em> of a Gaussian (&#963; = 1.0).</figcaption>
+    </figure></article>
+    <article class="card"><figure>
+      <img class="fit" src="./assets/part1_3/dyog.png" alt="DoG dy" />
+      <figcaption>DoG kernel: <em>d/dy</em> of a Gaussian (&#963; = 1.0).</figcaption>
+    </figure></article>
+  </div>
+
+  <p>
+    Compared to the raw gradient magnitude from Part&nbsp;1.2 (even after thresholding), DoG produces cleaner,
+    more continuous edges. Although simple thresholding on the raw gradients is
+    surprisingly strong, some background speckle still remains. DoG suppresses much of that residual noise and
+    yields a smoother binary edge map.
+  </p>
+
+<div class="pair">
+  <article class="card"><figure>
+    <img class="fit" src="./assets/part1_2/cam_edge_binarize.jpg" alt="Binary edge map" />
+    <figcaption>Finite-difference edges after thresholding — strong outlines but still noisy.</figcaption>
+  </figure></article>
+  <article class="card"><figure>
+    <img class="fit" src="./assets/part1_3/cam_dog_binarize.jpg" alt="DoG edges" />
+    <figcaption>DoG + thresholding — cleaner boundaries and reduced background speckle.</figcaption>
+  </figure></article>
+</div>
+
+</section>
+
 </section>
 
 <section id="part2">
@@ -241,7 +271,6 @@ last_updated: Oct 3, 2025
       high-frequency subject; stepping back reveals the low-frequency subject. I include frequency-magnitude plots for one pair to
       show how information occupies complementary bands.
     </p>
-
     <h4 id="hybrid-derek">Derek &amp; Nutmeg</h4>
     <div class="pair">
       <figure>
