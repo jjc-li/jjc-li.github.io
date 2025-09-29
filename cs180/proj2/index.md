@@ -14,7 +14,7 @@ last_updated: Oct 3, 2025
     All figures live in <code>cs180/proj2/assets/</code>.
   </p>
 
-  <h2>A Gift to Formula&nbsp;1 Fans</h3>
+  <h2>A Gift to Formula&nbsp;1 Fans</h2>
   <p>
     As a Formula&nbsp;1 fan, I couldn’t resist applying hybrid images to some iconic memes.
     These two examples show how low- and high-frequency components combine to make visuals
