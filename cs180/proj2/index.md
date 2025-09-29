@@ -13,6 +13,24 @@ last_updated: Oct 3, 2025
   <p class="muted">
     All figures live in <code>cs180/proj2/assets/</code>.
   </p>
+
+  <h2>A Gift to Formula&nbsp;1 Fans</h3>
+  <p>
+    As a Formula&nbsp;1 fan, I couldn’t resist applying hybrid images to some iconic memes.
+    These two examples show how low- and high-frequency components combine to make visuals
+    that are funny up close and far away.
+  </p>
+
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor.png" alt="Hybrid Sauber + Tractor" />
+      <figcaption>Hybrid: Sauber C44 body with green tractor detail.</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_2_hybrid/binotto_clown/binotto_clown.png" alt="Hybrid Binotto + Clown" />
+      <figcaption>Hybrid: Mattia Binotto up close, clown from a distance.</figcaption>
+    </figure>
+  </div>
 </section>
 
 
@@ -462,15 +480,15 @@ last_updated: Oct 3, 2025
   <div class="grid3">
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level0.jpg" alt="Apple level 0" />
-      <figcaption>Apple — level&nbsp;0</figcaption>
+      <figcaption>Apple — Level&nbsp;0</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level0.jpg" alt="Orange level 0" />
-      <figcaption>Orange — level&nbsp;0</figcaption>
+      <figcaption>Orange — Level&nbsp;0</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level0.jpg" alt="Blended level 0" />
-      <figcaption>Blend — level&nbsp;0</figcaption>
+      <figcaption>Blend — Level&nbsp;0</figcaption>
     </figure>
   </div>
 
@@ -479,15 +497,15 @@ last_updated: Oct 3, 2025
   <div class="grid3">
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level1.jpg" alt="Apple level 1" />
-      <figcaption>Apple — level&nbsp;1</figcaption>
+      <figcaption>Apple — Level&nbsp;1</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level1.jpg" alt="Orange level 1" />
-      <figcaption>Orange — level&nbsp;1</figcaption>
+      <figcaption>Orange — Level&nbsp;1</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level1.jpg" alt="Blended level 1" />
-      <figcaption>Blend — level&nbsp;1</figcaption>
+      <figcaption>Blend — Level&nbsp;1</figcaption>
     </figure>
   </div>
 
@@ -496,15 +514,15 @@ last_updated: Oct 3, 2025
   <div class="grid3">
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level4.jpg" alt="Apple level 4" />
-      <figcaption>Apple — level&nbsp;4</figcaption>
+      <figcaption>Apple — Level&nbsp;4</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level4.jpg" alt="Orange level 4" />
-      <figcaption>Orange — level&nbsp;4</figcaption>
+      <figcaption>Orange — Level&nbsp;4</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level4.jpg" alt="Blended level 4" />
-      <figcaption>Blend — level&nbsp;4</figcaption>
+      <figcaption>Blend — Level&nbsp;4</figcaption>
     </figure>
   </div>
 
@@ -513,15 +531,15 @@ last_updated: Oct 3, 2025
   <div class="grid3">
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level8.jpg" alt="Apple level 8" />
-      <figcaption>Apple — level&nbsp;8</figcaption>
+      <figcaption>Apple — Level&nbsp;8</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level8.jpg" alt="Orange level 8" />
-      <figcaption>Orange — level&nbsp;8</figcaption>
+      <figcaption>Orange — Level&nbsp;8</figcaption>
     </figure>
     <figure>
       <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level8.jpg" alt="Blended level 8" />
-      <figcaption>Blend — level&nbsp;8</figcaption>
+      <figcaption>Blend — Level&nbsp;8</figcaption>
     </figure>
   </div>
 
@@ -545,126 +563,210 @@ last_updated: Oct 3, 2025
 </section>
 
 
-  <section id="part2-4">
-    <h3 id="part2-4">2.4 Multiresolution blending</h3>
-    <p>
-      With stacks in place, blending becomes a per-level interpolation followed by reconstruction. I produced two blends: Apple-or-
-      Orange (the classic example) and two custom composites — Foothill sunset stitched across a city skyline and a hand holding the
-      Earth. The Laplacian and mask stacks confirm that only band-limited seams appear in the final image.
-    </p>
-
-    <h4 id="blend-apple">Apple &amp; Orange</h4>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/input/apple.jpeg" alt="Apple" />
-        <figcaption>Source A.</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/input/orange.jpeg" alt="Orange" />
-        <figcaption>Source B.</figcaption>
-      </figure>
-    </div>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level0.jpg" alt="Mask" />
-        <figcaption>Feathered vertical mask.</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/apple_orange.jpg" alt="Final blend" />
-        <figcaption>Final blend — smooth transition across the seam.</figcaption>
-      </figure>
-    </div>
-
-    <h4 id="blend-foothill">Foothill Skyline</h4>
-    <p>
-      I blended two Berkeley skyline shots captured minutes apart. The stack visualizations show how the Laplacian bands capture
-      cloud texture while the mask concentrates along the seam to avoid ghosting.
-    </p>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/foothill/left0.jpg" alt="Foothill left" />
-        <figcaption>Left image (golden hour).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/foothill/right0.jpg" alt="Foothill right" />
-        <figcaption>Right image (blue hour).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/foothill/combined.jpg" alt="Foothill blend" />
-        <figcaption>Final blend.</figcaption>
-      </figure></article>
-    </div>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/foothill/mathed_level2.jpg" alt="Mask level 2" />
-        <figcaption>Mask level&nbsp;2 (feathered seam).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/foothill/left3.jpg" alt="Left Laplacian" />
-        <figcaption>Left Laplacian level&nbsp;3.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/foothill/right3.jpg" alt="Right Laplacian" />
-        <figcaption>Right Laplacian level&nbsp;3.</figcaption>
-      </figure></article>
-    </div>
-
-    <h4 id="blend-hand">Hand &amp; Earth</h4>
-    <p>
-      For a more dramatic composite, I blended a rendered Earth with a studio-lit hand using a radial mask. Higher Laplacian levels
-      capture the planetary highlights without introducing seams along the fingers.
-    </p>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_level0.jpg" alt="Hand" />
-        <figcaption>Hand — level 0.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/hand_earth/earth_level0.jpg" alt="Earth" />
-        <figcaption>Earth — level 0.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_earth.jpg" alt="Hand holding Earth" />
-        <figcaption>Final blend.</figcaption>
-      </figure></article>
-    </div>
-    <div class="grid">
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/hand_earth/matched_level2.jpg" alt="Mask level 2" />
-        <figcaption>Mask level&nbsp;2 (radial feather).</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_level3.jpg" alt="Hand Laplacian" />
-        <figcaption>Hand Laplacian level&nbsp;3.</figcaption>
-      </figure></article>
-      <article class="card"><figure>
-        <img class="fit" src="./assets/part2_4_blend/hand_earth/earth_level3.jpg" alt="Earth Laplacian" />
-        <figcaption>Earth Laplacian level&nbsp;3.</figcaption>
-      </figure></article>
-    </div>
-  </section>
-</section>
-
-<section id="bells">
-  <h2 id="bells">Bells &amp; Whistles</h2>
+<section id="part2-4">
+  <h3 id="part2-4">2.4 Multiresolution Blending</h3>
+  <!-- Foothill -->
+  <h4 id="blend-foothill">Foothill — blue sky ↔ cloudy sky</h4>
   <p>
-    I plan to explore color-space sharpening (performing unsharp masking in LAB instead of RGB) and potentially Poisson blending for
-    more natural composites. Results will be added here if time permits.
+    I often shoot the same view from my dorm. To compare the weathers, I blended a blue-sky frame (left)
+    with a cloudy frame (right). The Gaussian masks ensure the transition is smooth.
   </p>
+
+  <!-- Inputs -->
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/input/blue.jpeg" alt="Foothill left" />
+      <figcaption>Left (blue sky).</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/input/cloudy.jpeg" alt="Foothill right" />
+      <figcaption>Right (cloudy).</figcaption>
+    </figure>
+  </div>
+
+  <!-- Selected levels: 0,1,4,8 -->
+  <h5 class="muted">Selected stack levels (Left, Right, Mask)</h5>
+
+  <h6 class="muted">Level 0</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/left0.jpg" alt="Foothill left L0" />
+      <figcaption>Left — Level&nbsp;0</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/right0.jpg" alt="Foothill right L0" />
+      <figcaption>Right — Level&nbsp;0</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/matched_level0.jpg" alt="Foothill mask L0" />
+      <figcaption>Blend — Level&nbsp;0</figcaption>
+    </figure>
+  </div>
+
+  <h6 class="muted">Level 1</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/left1.jpg" alt="Foothill left L1" />
+      <figcaption>Left — Level&nbsp;1</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/right1.jpg" alt="Foothill right L1" />
+      <figcaption>Right — Level&nbsp;1</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/matched_level1.jpg" alt="Foothill mask L1" />
+      <figcaption>Blend — Level&nbsp;1</figcaption>
+    </figure>
+  </div>
+
+  <h6 class="muted">Level 4</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/left4.jpg" alt="Foothill left L4" />
+      <figcaption>Left — Level&nbsp;4</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/right4.jpg" alt="Foothill right L4" />
+      <figcaption>Right — Level&nbsp;4</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/matched_level4.jpg" alt="Foothill mask L4" />
+      <figcaption>Blend — Level&nbsp;4</figcaption>
+    </figure>
+  </div>
+
+  <h6 class="muted">Level 8 (coarsest)</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/left8.jpg" alt="Foothill left L8" />
+      <figcaption>Left — Level&nbsp;8</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/right8.jpg" alt="Foothill right L8" />
+      <figcaption>Right — Level&nbsp;8</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/foothill/matched_level8.jpg" alt="Foothill mask L8" />
+      <figcaption>Blend — Level&nbsp;8</figcaption>
+    </figure>
+  </div>
+
+  <!-- Final blend -->
+  <figure>
+    <img class="fit" src="./assets/part2_4_blend/foothill/combined.jpg" alt="Foothill blended result" />
+    <figcaption>Final blend — smooth transition</figcaption>
+  </figure>
+
+
+  <hr class="spacer-l" />
+
+  <!-- Hand + Earth -->
+  <h4 id="blend-hand">Hand &amp; Earth</h4>
+  <p>
+    Inspired by the thought experiment that humans might be created or controlled by external agents, I blended a hand
+    with the Earth. A <em>radial-ish</em> mask centered on the planet allows the smooth blending between hand and Earth.
+  </p>
+
+  <!-- Inputs -->
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/input/hand.jpg" alt="Hand" />
+      <figcaption>Hand</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/input/earth.jpg" alt="Earth" />
+      <figcaption>Earth</figcaption>
+    </figure>
+  </div>
+
+  <!-- Selected levels: 0,1,4,8 -->
+  <h5 class="muted">Selected stack levels (Hand, Earth, Blend)</h5>
+
+  <h6 class="muted">Level 0</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_level0.jpg" alt="Hand L0" />
+      <figcaption>Hand — Level&nbsp;0</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/earth_level0.jpg" alt="Earth L0" />
+      <figcaption>Earth — Level&nbsp;0</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/matched_level0.jpg" alt="Mask L0" />
+      <figcaption>Blend — Level&nbsp;0</figcaption>
+    </figure>
+  </div>
+
+  <h6 class="muted">Level 1</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_level1.jpg" alt="Hand L1" />
+      <figcaption>Hand — Level&nbsp;1</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/earth_level1.jpg" alt="Earth L1" />
+      <figcaption>Earth — Level&nbsp;1</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/matched_level1.jpg" alt="Mask L1" />
+      <figcaption>Blend — Level&nbsp;1</figcaption>
+    </figure>
+  </div>
+
+  <h6 class="muted">Level 4</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_level4.jpg" alt="Hand L4" />
+      <figcaption>Hand — Level&nbsp;4</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/earth_level4.jpg" alt="Earth L4" />
+      <figcaption>Earth — Level&nbsp;4</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/matched_level4.jpg" alt="Mask L4" />
+      <figcaption>Blend — Level&nbsp;4</figcaption>
+    </figure>
+  </div>
+
+  <h6 class="muted">Level 8</h6>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_level8.jpg" alt="Hand L8" />
+      <figcaption>Hand — Level&nbsp;8</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/earth_level8.jpg" alt="Earth L8" />
+      <figcaption>Earth — Level&nbsp;8</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/matched_level8.jpg" alt="Mask L8" />
+      <figcaption>Blend — Level&nbsp;8</figcaption>
+    </figure>
+  </div>
+
+  <!-- Final blend -->
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/hand_earth.jpg" alt="Hand holding Earth blended result" />
+      <figcaption>Final blend.</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_4_blend/hand_earth/input/hand_earth_mask.jpg" alt="Mask" />
+      <figcaption>Mask.</figcaption>
+    </figure>
+  </div>
 </section>
+
 
 <section id="reflection">
   <h2 id="reflection">Discussion &amp; Reflection</h2>
   <p>
-    Working in the frequency domain makes it clear why simple convolution tricks create powerful perceptual effects. High-frequency
-    halos appear quickly if the sharpening amount is too large, and hybrid images depend critically on spatial alignment before
-    filtering. Multiresolution blending was the most satisfying deliverable: once the stacks are built, swapping in new sources and
-    masks becomes a one-line change.
+  This project gave me hands-on experience with how frequency analysis underlies many classic image-processing techniques. From implementing convolutions and edge detection to sharpening and multiresolution blending, I saw how simple filters can reveal structure, suppress noise, or seamlessly merge images. Each part built on the previous one, deepening my understanding of how images can be decomposed into frequency components and recombined in useful ways.
   </p>
   <p>
-    One challenge was selecting consistent thresholds and mask feather widths so binary decisions do not introduce seams. Future
-    improvements include adaptive thresholding for edge detection and automated alignment (e.g., phase correlation) to streamline
-    hybrid image creation.
+  The most exciting part for me was creating hybrid images. As a Formula 1 fan, I especially enjoyed blending the slow Sauber C44 with a tractor—a visual joke that also perfectly illustrates low- vs. high-frequency decomposition. Seeing how the hybrid image changes depending on viewing distance, and confirming it through FFT plots, connected the math directly to perception in a way that was both rigorous and fun.
   </p>
 </section>
 
@@ -672,6 +774,5 @@ last_updated: Oct 3, 2025
   <h2 id="assets">Assets &amp; Downloads</h2>
   <ul>
     <li><a href="./assets/">Full-resolution figures and intermediate levels</a></li>
-    <li>Source notebooks and scripts (to be linked after cleanup)</li>
   </ul>
 </section>
