@@ -398,7 +398,7 @@ last_updated: Sep 28, 2025
     concentration at the center (low frequencies), while the high-pass tractor spectrum spreads into the periphery. The
     hybrid FFT combines these, confirming how Gaussian filtering redistributes energy across frequency bands.
   </p>
-  <div class="grid3">
+  <div class="grid">
     <figure>
       <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_fft.png" alt="FFT Sauber" />
       <figcaption>FFT of Sauber (low frequencies dominate center)</figcaption>
