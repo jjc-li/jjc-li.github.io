@@ -398,20 +398,20 @@ last_updated: Sep 28, 2025
     concentration at the center (low frequencies), while the high-pass tractor spectrum spreads into the periphery. The
     hybrid FFT combines these, confirming how Gaussian filtering redistributes energy across frequency bands.
   </p>
-  <div class="grid">
-    <figure>
-      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_fft.png" alt="FFT Sauber" />
-      <figcaption>FFT of Sauber (low frequencies dominate center)</figcaption>
-    </figure>
-    <figure>
-      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_fft.png" alt="FFT Tractor" />
-      <figcaption>FFT of Tractor (high frequencies dominate edges)</figcaption>
-    </figure>
-    <figure>
-      <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor_fft.png" alt="FFT Hybrid" />
-      <figcaption>FFT of Hybrid (mixture of both)</figcaption>
-    </figure>
-  </div>
+
+  <figure>
+    <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_fft.png" alt="FFT Sauber" />
+    <figcaption>FFT of Sauber (low frequencies dominate center)</figcaption>
+  </figure>
+  <figure>
+    <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/tractor_fft.png" alt="FFT Tractor" />
+    <figcaption>FFT of Tractor (high frequencies dominate edges)</figcaption>
+  </figure>
+  <figure>
+    <img class="fit" src="./assets/part2_2_hybrid/sauber_tractor/sauber_tractor_fft.png" alt="FFT Hybrid" />
+    <figcaption>FFT of Hybrid (mixture of both)</figcaption>
+  </figure>
+
 
   <!-- Binotto + Clown -->
   <h4>Binotto + Clown (Ferrari strategy meme)</h4>
