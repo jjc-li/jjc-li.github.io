@@ -330,7 +330,7 @@ last_updated: Oct 3, 2025
   </div>
   <div class="pair">
     <figure>
-      <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/derek_low.png" alt="Derek aligned" />
+      <img class="fit" src="./assets/part2_2_hybrid/derek_nutmeg/derek_low.jpg" alt="Derek aligned" />
       <figcaption>Derek (low-pass)</figcaption>
     </figure>
     <figure>
@@ -430,73 +430,120 @@ last_updated: Oct 3, 2025
 </section>
 
 
-  <section id="part2-3">
-    <h3 id="part2-3">2.3 Gaussian and Laplacian stacks</h3>
-    <p>
-      I constructed nine-level Gaussian and Laplacian stacks for the classic apple-or-orange example. Each subsequent Gaussian level
-      downsamples by a factor of two, while the Laplacian levels capture band-pass information (Gaussian level minus the next level
-      upsampled). The matched stack stores the mask at each scale so blending can be performed consistently.
-    </p>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/apple_orange.jpg" alt="Hybrid fruit" />
-        <figcaption>Blend target: apple on the left, orange on the right.</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/input/apple.jpeg" alt="Apple input" />
-        <figcaption>Source A (apple).</figcaption>
-      </figure>
-    </div>
-    <div class="pair">
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/input/orange.jpeg" alt="Orange input" />
-        <figcaption>Source B (orange).</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level0.jpg" alt="Mask level 0" />
-        <figcaption>Mask level&nbsp;0 (full resolution).</figcaption>
-      </figure>
-    </div>
-    <p class="muted">Representative stack levels (top row: Gaussian, middle row: Laplacian, bottom row: mask).</p>
-    <div class="stack-grid">
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level0.jpg" alt="Apple level 0" />
-        <figcaption>Gaussian L0</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level3.jpg" alt="Apple level 3" />
-        <figcaption>Gaussian L3</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level6.jpg" alt="Apple level 6" />
-        <figcaption>Gaussian L6</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level0.jpg" alt="Laplacian level 0" />
-        <figcaption>Laplacian L0</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level3.jpg" alt="Laplacian level 3" />
-        <figcaption>Laplacian L3</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level6.jpg" alt="Laplacian level 6" />
-        <figcaption>Laplacian L6</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level3.jpg" alt="Mask level 3" />
-        <figcaption>Mask L3</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level6.jpg" alt="Mask level 6" />
-        <figcaption>Mask L6</figcaption>
-      </figure>
-      <figure>
-        <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level8.jpg" alt="Mask level 8" />
-        <figcaption>Mask L8</figcaption>
-      </figure>
-    </div>
-  </section>
+<section id="part2-3">
+  <h3 id="part2-3">2.3 Gaussian &amp; Laplacian Stacks</h3>
+  <p>
+    I build a Gaussian stack by repeatedly low-pass filtering the image (no downsampling) and a Laplacian stack by
+    subtracting adjacent Gaussian levels (<code>L<sub>k</sub> = G<sub>k</sub> − G<sub>k+1</sub></code>, with the coarsest
+    <code>G</code> kept as the last level). For blending, a <em>feathered mask</em> is filtered into its own Gaussian stack,
+    and at each level I interpolate between the two Laplacian bands with the corresponding mask level, then sum all bands
+    back to reconstruct.
+  </p>
+  <p class="muted">
+    Below: selected stack levels for the classic Apple–Orange example. Each row shows the same level for
+    <strong>Apple</strong>, <strong>Orange</strong>, and the <strong>per-level blend</strong>.
+    I include levels 0, 1, 4, and 8 to illustrate fine &rarr; coarse structure.
+  </p>
+
+  <!-- Inputs -->
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/input/apple.jpeg" alt="Apple input" />
+      <figcaption>Source A — Apple.</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/input/orange.jpeg" alt="Orange input" />
+      <figcaption>Source B — Orange.</figcaption>
+    </figure>
+  </div>
+
+  <!-- Level 0 -->
+  <h4 class="muted">Level 0</h4>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level0.jpg" alt="Apple level 0" />
+      <figcaption>Apple — level&nbsp;0</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level0.jpg" alt="Orange level 0" />
+      <figcaption>Orange — level&nbsp;0</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level0.jpg" alt="Blended level 0" />
+      <figcaption>Blend — level&nbsp;0</figcaption>
+    </figure>
+  </div>
+
+  <!-- Level 1 -->
+  <h4 class="muted">Level 1</h4>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level1.jpg" alt="Apple level 1" />
+      <figcaption>Apple — level&nbsp;1</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level1.jpg" alt="Orange level 1" />
+      <figcaption>Orange — level&nbsp;1</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level1.jpg" alt="Blended level 1" />
+      <figcaption>Blend — level&nbsp;1</figcaption>
+    </figure>
+  </div>
+
+  <!-- Level 4 -->
+  <h4 class="muted">Level 4</h4>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level4.jpg" alt="Apple level 4" />
+      <figcaption>Apple — level&nbsp;4</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level4.jpg" alt="Orange level 4" />
+      <figcaption>Orange — level&nbsp;4</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level4.jpg" alt="Blended level 4" />
+      <figcaption>Blend — level&nbsp;4</figcaption>
+    </figure>
+  </div>
+
+  <!-- Level 8 -->
+  <h4 class="muted">Level 8 (coarsest)</h4>
+  <div class="grid3">
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/apple_level8.jpg" alt="Apple level 8" />
+      <figcaption>Apple — level&nbsp;8</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/orange_level8.jpg" alt="Orange level 8" />
+      <figcaption>Orange — level&nbsp;8</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/blended_level8.jpg" alt="Blended level 8" />
+      <figcaption>Blend — level&nbsp;8</figcaption>
+    </figure>
+  </div>
+
+  <!-- Final -->
+  <div class="pair">
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/apple_orange.jpg" alt="Final apple–orange blend" />
+      <figcaption>Final reconstruction from per-level blends.</figcaption>
+    </figure>
+    <figure>
+      <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level0.jpg" alt="Mask level 0" />
+      <figcaption>Mask (level&nbsp;0) used to guide blending across scales.</figcaption>
+    </figure>
+  </div>
+
+  <p class="note">
+    Reading the rows left&rarr;right: fine-scale bands (levels 0–1) carry sharp texture;
+    mid-scales (e.g., level&nbsp;4) carry contours; the coarsest level (8) preserves overall brightness/lighting.
+    Blending each band with a <em>Gaussian-smoothed mask</em> avoids hard seams and produces the smooth apple-to-orange transition.
+  </p>
+</section>
+
 
   <section id="part2-4">
     <h3 id="part2-4">2.4 Multiresolution blending</h3>

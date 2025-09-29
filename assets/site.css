@@ -118,4 +118,23 @@
     .grid3 { grid-template-columns: 1fr; }
   }
 
-  
+/* vertical rhythm between sections */
+section {
+  margin-block: 2.5rem;   /* top & bottom spacing */
+}
+
+/* space after image groups */
+.pair, .grid, .grid3 {
+  gap: 1.25rem;           /* space between items in the group */
+  margin-block-end: 1.75rem;  /* space below the group */
+}
+
+/* cards/figures shouldn't add random extra margins */
+.card { padding: 0.75rem; }
+figure { margin: 0; }
+figcaption { margin-top: 0.5rem; color: var(--muted, #6b7280); }
+
+/* headings with breathing room */
+h3 { margin-top: 2rem; margin-bottom: 0.75rem; }
+h4 { margin-top: 1.5rem; margin-bottom: 0.5rem; }
+
