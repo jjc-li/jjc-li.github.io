@@ -543,17 +543,11 @@ last_updated: Sep 28, 2025
     </figure>
   </div>
 
-  <!-- Final -->
-  <div class="pair">
-    <figure>
-      <img class="fit" src="./assets/part2_3_stacks/fruit/apple_orange.jpg" alt="Final apple–orange blend" />
-      <figcaption>Final reconstruction from per-level blends.</figcaption>
-    </figure>
-    <figure>
-      <img class="fit" src="./assets/part2_3_stacks/fruit/matched_level0.jpg" alt="Mask level 0" />
-      <figcaption>Mask (level&nbsp;0) used to guide blending across scales.</figcaption>
-    </figure>
-  </div>
+  <figure>
+    <img class="fit" src="./assets/part2_3_stacks/fruit/apple_orange.jpg" alt="Final apple–orange blend" />
+    <figcaption>Final reconstruction.</figcaption>
+  </figure>
+
 
   <p class="note">
     Reading the rows left&rarr;right: fine-scale bands (levels 0–1) carry sharp texture;
@@ -566,7 +560,7 @@ last_updated: Sep 28, 2025
 <section id="part2-4">
   <h3 id="part2-4">2.4 Multiresolution Blending</h3>
   <!-- Foothill -->
-  <h4 id="blend-foothill">Foothill — blue sky ↔ cloudy sky</h4>
+  <h4 id="blend-foothill">Foothill — blue sky and cloudy sky</h4>
   <p>
     I often shoot the same view from my dorm. To compare the weathers, I blended a blue-sky frame (left)
     with a cloudy frame (right). The Gaussian masks ensure the transition is smooth.
