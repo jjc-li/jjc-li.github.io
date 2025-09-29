@@ -26,6 +26,6 @@ last_updated: Sep 12, 2025
   <article class="card">
     <h3><a href="{{ '/cs180/proj2/' | relative_url }}">Project 2: Fun with Filters and Frequencies</a></h3>
     <div class="muted">Sharpening, hybrid images, and multiresolution blending</div>
-    <div class="meta">Updated: Sep 30, 2025</div>
+    <div class="meta">Updated: Sep 28, 2025</div>
   </article>
 </section>

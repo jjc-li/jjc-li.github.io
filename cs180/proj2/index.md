@@ -2,7 +2,7 @@
 layout: project
 title: CS180 Project 2 - Fun with Filters and Frequencies!
 subtitle: Sharpening, hybrid images, and frequency-based blending
-last_updated: Oct 3, 2025
+last_updated: Sep 28, 2025
 ---
 
 <section id="overview">
