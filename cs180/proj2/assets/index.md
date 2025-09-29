@@ -23,7 +23,8 @@ and group by directory using "path | remove: name" (works on GitHub Pages).
 {%- endcomment -%}
 {%- assign proj2_files = site.static_files
   | where_exp: "f", "f.path contains '/cs180/proj2/assets/'"
-  | where_exp: "f", "f.name != '.DS_Store' and f.name != '.gitkeep'"
+  | where_exp: "f", "f.name != '.DS_Store'"
+  | where_exp: "f", "f.name != '.gitkeep'"
 -%}
 {%- assign grouped = proj2_files | group_by_exp: "f", "f.path | remove: f.name" -%}
 {%- assign grouped = grouped | sort: "name" -%}
@@ -44,4 +45,3 @@ and group by directory using "path | remove: name" (works on GitHub Pages).
     {%- endfor -%}
   </ul>
 {%- endfor -%}
-
