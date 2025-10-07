@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CS180 — Projects
-last_updated: Sep 12, 2025
+last_updated: Oct 7, 2025
 ---
 
 <section class="hero">
@@ -27,5 +27,10 @@ last_updated: Sep 12, 2025
     <h3><a href="{{ '/cs180/proj2/' | relative_url }}">Project 2: Fun with Filters and Frequencies</a></h3>
     <div class="muted">Sharpening, hybrid images, and multiresolution blending</div>
     <div class="meta">Updated: Sep 28, 2025</div>
+  </article>
+  <article class="card">
+    <h3><a href="{{ '/cs180/proj3/' | relative_url }}">Project 3: Face Morphing and Modelling a Photo Collection</a></h3>
+    <div class="muted">Feature correspondences, triangulated warps, and mean face analysis</div>
+    <div class="meta">Updated: Oct 7, 2025</div>
   </article>
 </section>
