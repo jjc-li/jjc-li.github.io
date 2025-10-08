@@ -29,7 +29,7 @@ last_updated: Oct 7, 2025
     <div class="meta">Updated: Sep 28, 2025</div>
   </article>
   <article class="card">
-    <h3><a href="{{ '/cs180/proj3/' | relative_url }}">Project 3: Face Morphing and Modelling a Photo Collection</a></h3>
+    <h3><a href="{{ '/cs180/proj3/partAA' | relative_url }}">Project 3A: Face Morphing and Modelling a Photo Collection</a></h3>
     <div class="muted">Feature correspondences, triangulated warps, and mean face analysis</div>
     <div class="meta">Updated: Oct 7, 2025</div>
   </article>
