@@ -167,12 +167,11 @@ last_updated: Oct 7, 2025
     I used around 15 points distributed across the image, so the estimate becomes more robust.
   </p>
 
-  <div class="grid">
-    <figure class="fig">
+  <figure class="fig">
       <img src="/cs180/proj3/assets/partA/cal/corr_i1_i2.png" alt="Cal i1→i2 correspondences">
       <figcaption class="caption">Example correspondences between Cal images i1 and i2.</figcaption>
-    </figure>
-  </div>
+  </figure>
+
 
 
 <section id="warp">
@@ -278,7 +277,7 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
   <p>
     "Rectification" on image is helpful to check whether the projection function is working correctly.
 
-  <div class="grid">
+  <div class="pair">
     <figure class="fig">
       <img src="/cs180/proj3/assets/partA/rect/rect_src1.jpg" alt="Rect source 1">
       <figcaption class="caption">Rectification — source image (example 1).</figcaption>
@@ -289,7 +288,7 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
     </figure>
   </div>
 
-  <div class="grid">
+  <div class="pair">
     <figure class="fig">
       <img src="/cs180/proj3/assets/partA/rect/rect_src2.jpg" alt="Rect source 2">
       <figcaption class="caption">Rectification — source image (example 2).</figcaption>
@@ -336,31 +335,6 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
   <p class="muted">
     Picture needed here: <code>pano.png</code> (final mosaic).
   </p>
-</section>
-
-<section id="results">
-  <h2 id="results">Additional Results</h2>
-  <p>
-    Three more mosaics produced with the same pipeline. Replace the image sources below with your exported results.
-  </p>
-
-  <!-- Mosaic 1 -->
-  <figure class="fig">
-    <img class="bigimg" src="/cs180/proj3/assets/partA/hearst/pano.png" alt="Hearst panorama">
-    <figcaption class="caption">Hearst — final panorama (4 images)</figcaption>
-  </figure>
-
-  <!-- Mosaic 2 -->
-  <figure class="fig">
-    <img class="bigimg" src="/cs180/proj3/assets/partA/southhall/pano.png" alt="South Hall panorama">
-    <figcaption class="caption">South Hall — final panorama (3 images)</figcaption>
-  </figure>
-
-  <!-- Mosaic 3 -->
-  <figure class="fig">
-    <img class="bigimg" src="/cs180/proj3/assets/partA/doe/pano.png" alt="Doe panorama">
-    <figcaption class="caption">Doe — final panorama (3 images)</figcaption>
-  </figure>
 </section>
 
 
