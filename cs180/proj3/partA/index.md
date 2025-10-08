@@ -333,9 +333,6 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
     <figcaption class="caption">Doe Library — final panorama (3 images)</figcaption>
   </figure>
 
-  <p class="muted">
-    Picture needed here: <code>pano.png</code> (final mosaic).
-  </p>
 </section>
 
 
