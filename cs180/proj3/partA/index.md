@@ -16,7 +16,7 @@ last_updated: Oct 7, 2025
     and <em>Hearst</em> (4 images — richer overlaps and a larger field of view).
   </p>
   <p class="muted">
-    All figures live under <code>cs180/proj3/assets/partA/&lt;scene&gt;/</code>. See the picture checklist in each section.
+    All figures live under <code>cs180/proj3/assets/partA/&lt;scene&gt;/</code>.
   </p>
 </section>
 
@@ -298,6 +298,7 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
       <figcaption class="caption">Rectified (example 2).</figcaption>
     </figure>
   </div>
+  
 </section>
 
 
