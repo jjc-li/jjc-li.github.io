@@ -1,6 +1,6 @@
 ---
 layout: project
-title: CS180 Project 3 – Image Warping & Mosaics (Part A)
+title: CS180 Project 3 – Photo mosaics
 subtitle: Homographies, inverse warps, and panorama blending
 last_updated: Oct 7, 2025
 ---
@@ -346,9 +346,10 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
   </p>
 </section>
 
-<section id="assets">
-  <h2 id="assets">Assets &amp; Downloads</h2>
+<section id="links">
+  <h2 id="links">7 — Links &amp; Assets</h2>
   <ul>
-    <li><a href="../assets/partA/">Original and final images</a></li>
+    <li><a href="/cs180/proj3/partA/assets/">Downloads</a> — Original and final images</li>
+    <li><a href="/cs180/proj3/partB/">Go to Part B</a> — Autostitching</li>
   </ul>
 </section>
