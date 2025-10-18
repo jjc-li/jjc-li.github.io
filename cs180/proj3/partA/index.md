@@ -349,7 +349,7 @@ imwarped_bil = warpImageBilinear(im, H)</code></pre>
 <section id="links">
   <h2 id="links">7 — Links &amp; Assets</h2>
   <ul>
-    <li><a href="/cs180/proj3/partA/assets/">Downloads</a> — Original and final images</li>
+    <li><a href="/cs180/proj3/assets/partA/">Downloads</a> — Original and final images</li>
     <li><a href="/cs180/proj3/partB/">Go to Part B</a> — Autostitching</li>
   </ul>
 </section>

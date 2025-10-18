@@ -8,10 +8,15 @@ last_updated: Oct 17, 2025
 <section id="overview">
   <h2 id="overview">Overview</h2>
   <p>
-    To be filled
+    This part automates panorama stitching. Starting from casual, overlapping photos, I detect corners with
+    Harris, apply <em>Adaptive Non‑Maximal Suppression</em> (ANMS) to keep a well‑spread subset, and extract simple
+    8×8 bias/gain‑normalized patch descriptors from 40×40 windows. I then match features with a nearest‑neighbor
+    ratio test and estimate robust homographies using 4‑point RANSAC. Finally, I reuse the Part A warping and
+    blending code to assemble clean mosaics. The result is an
+    <em>autostitching</em> pipeline that produces panoramas comparable to the manual method without hand‑picked points.
   </p>
   <p class="muted">
-    All figures live under <code>cs180/proj3/assets/partB/&lt;scene&gt;/</code>.
+    All figures live under <code>cs180/proj3/assets/partB</code>.
   </p>
 </section>
 
@@ -206,12 +211,9 @@ last_updated: Oct 17, 2025
 <section id="reflection">
   <h2 id="reflection">6 — Reflection</h2>
   <p>
-    Building the automatic pipeline clarified how each stage supports the next: Harris finds many plausible corners;
-    ANMS keeps them well distributed; simple normalized 8×8 patches are surprisingly effective when paired with a
-    ratio test; and RANSAC turns noisy correspondences into a reliable homography. The biggest tuning levers were the
-    ANMS <em>K</em> (too small → holes; too large → many weak matches), the ratio threshold (trade‑off between recall and
-    precision), and the inlier tolerance in RANSAC. Failure cases mostly came from parallax and large moving objects;
-    multiband blending helped hide exposure seams but cannot fix geometry. Overall, the automatic results closely
+    Building the automatic pipeline clarified how each stage supports the next. Harris finds many plausible corners. ANMS keeps them well distributed. Simple normalized 8×8 patches are surprisingly effective when paired with a ratio test. RANSAC turns noisy correspondences into a reliable homography. The parameters that need to be tuned were the
+    ANMS <em>K</em> (too small lead to holes and too large lead to many weak matches), the ratio threshold (it's a tradeoff between recall and
+    precision), and the inlier tolerance in RANSAC. Failure cases mostly came from parallax and large moving objects. Overall, the automatic results closely
     tracked my Part A mosaics while removing the manual correspondence step.
   </p>
 </section>
@@ -219,7 +221,7 @@ last_updated: Oct 17, 2025
 <section id="links">
   <h2 id="links">7 — Links &amp; Assets</h2>
   <ul>
-    <li><a href="/cs180/proj3/partB/assets/">Downloads</a> — Original and final images</li>
+    <li><a href="/cs180/proj3/assets/partB/">Downloads</a> — Original and final images</li>
     <li><a href="/cs180/proj3/partA/">Go to Part A</a> — manual correspondences + warping/blending writeup.</li>
   </ul>
 </section>
