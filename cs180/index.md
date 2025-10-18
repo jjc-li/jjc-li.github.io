@@ -29,8 +29,13 @@ last_updated: Oct 7, 2025
     <div class="meta">Updated: Sep 28, 2025</div>
   </article>
   <article class="card">
-    <h3><a href="{{ '/cs180/proj3/partA' | relative_url }}">Project 3A: Face Morphing and Modelling a Photo Collection</a></h3>
+    <h3><a href="{{ '/cs180/proj3/partA' | relative_url }}">Project 3A: Photo mosaics</a></h3>
     <div class="muted">Feature correspondences, triangulated warps, and mean face analysis</div>
     <div class="meta">Updated: Oct 7, 2025</div>
+  </article>
+    <article class="card">
+    <h3><a href="{{ '/cs180/proj3/partB' | relative_url }}">Project 3B: Autostitching</a></h3>
+    <div class="muted">Feature Matching for Autostitching</div>
+    <div class="meta">Updated: Oct 17, 2025</div>
   </article>
 </section>
