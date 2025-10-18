@@ -165,7 +165,7 @@ last_updated: Oct 17, 2025
 
   <!-- Hearst -->
   <h3>5.1 Hearst Mining Building</h3>
-  <div class="grid cols-2">
+  <div class="pair">
     <figure class="card">
       <img src="/cs180/proj3/assets/partB/hearst/manual_pano.png" alt="Hearst manual panorama (Part A)" loading="lazy" />
       <figcaption>Part A — Manual correspondences.</figcaption>
@@ -178,7 +178,7 @@ last_updated: Oct 17, 2025
 
   <!-- Cal -->
   <h3>5.2 California Hall</h3>
-  <div class="grid cols-2">
+  <div class="pair">
     <figure class="card">
       <img src="/cs180/proj3/assets/partB/cal/manual_pano.png" alt="Cal manual panorama (Part A)" loading="lazy" />
       <figcaption>Part A — Manual correspondences.</figcaption>
@@ -191,7 +191,7 @@ last_updated: Oct 17, 2025
 
   <!-- Doe -->
   <h3>5.3 Doe Library</h3>
-  <div class="grid cols-2">
+  <div class="pair">
     <figure class="card">
       <img src="/cs180/proj3/assets/partB/doe/manual_pano.png" alt="Doe manual panorama (Part A)" loading="lazy" />
       <figcaption>Part A — Manual correspondences.</figcaption>
