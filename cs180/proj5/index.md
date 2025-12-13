@@ -100,12 +100,12 @@ last_updated: Dec 12, 2025
     </p>
     <p><strong>Intermediate Progress (Every 5th Step):</strong></p>
     <img src="results/part1/1.4_progress.png" alt="Iterative Denoising Progress">
-    <h3>Comparison: Iterative vs One-Step vs Gaussian</h4>
+    <h3>Comparison: Iterative vs One-Step vs Gaussian</h3>
     <p>The iterative method (left) is the only one that produces a sharp, realistic image.</p>
     <img src="results/part1/1.4_final_comparison.png" alt="Final Comparison">
     </section>
     <section id="part1-5">
-    <h3>1.5 Diffusion Model Sampling</h2>
+    <h3>1.5 Diffusion Model Sampling</h3>
     <p>
         If we start with pure noise (instead of a noisy Campanile) and run the iterative loop, we generate new images!
     </p>
