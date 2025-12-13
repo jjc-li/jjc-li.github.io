@@ -1,9 +1,150 @@
----
-layout: project
-title: CS180 Project 5
-subtitle: Diffusion Models
-last_updated: Dec 12, 2025
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS180 Project 5: Diffusion Models</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px; /* Increased slightly for wide grids */
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fcfcfc;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h1 { text-align: center; border: none; font-size: 2.5em; margin-bottom: 10px; }
+        h4 { margin-top: 20px; margin-bottom: 10px; color: #444; }
+        .subtitle { text-align: center; color: #7f8c8d; margin-bottom: 50px; font-size: 1.2em; }
+        
+        /* --- Image Layout Classes --- */
+        
+        /* General Image Styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: block;
+            margin: 0 auto;
+        }
+        img:hover { transform: scale(1.02); }
+        
+        figcaption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
+            font-style: italic;
+            text-align: center;
+        }
+        figure {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* The 'grid' class (Used in Part 1.7 sequences) */
+        .grid {
+            display: grid;
+            /* Default to auto-fit, but inline styles often override this */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: 15px;
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        /* The 'grid-container' class (Used in Part A/B standard grids) */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .grid-item, article.card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Aligns captions */
+        }
+
+        /* The 'pair' class (Used for side-by-side images) */
+        .pair {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .pair figure {
+            flex: 1;
+            min-width: 300px; /* Wraps on small screens */
+        }
+
+        /* 'fit' class ensures images fill their container width */
+        .fit {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Code & Math --- */
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid #3498db;
+        }
+        code { font-family: 'Consolas', 'Monaco', monospace; font-size: 0.9em; }
+        
+        .math-block {
+            background: #fff;
+            padding: 15px;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            overflow-x: auto;
+        }
+
+        /* Comparison columns */
+        .comparison-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .comparison-col { 
+            flex: 1; 
+            text-align: center; 
+            min-width: 300px;
+        }
+    </style>
+    <!-- MathJax for Equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- YAML Front Matter left for Jekyll processing, technically visible if raw HTML -->
+    <div style="display:none">
+    ---
+    layout: project
+    title: CS180 Project 5
+    subtitle: Diffusion Models
+    last_updated: Dec 12, 2025
+    ---
+    </div>
 
     <h1>Project 5: Fun with Diffusion Models!</h1>
     <div class="subtitle">Part A: The Power of Diffusion &nbsp;|&nbsp; Part B: Diffusion from Scratch</div>
@@ -166,7 +307,7 @@ last_updated: Dec 12, 2025
         <h3>Campanile SDEdit</h3>
         <p>Here, I force the noisy Campanile back onto the manifold of "a high quality photo". Notice how at <code>i=20</code>, the model hallucinates a completely different tower structure.</p>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="campanile.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/campanile.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Campanile_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Campanile_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Campanile_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -177,7 +318,7 @@ last_updated: Dec 12, 2025
 
         <h3>Custom Image 1 SDEdit</h3>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="test_im1.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/test_im1.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Test1_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Test1_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Test1_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -188,7 +329,7 @@ last_updated: Dec 12, 2025
 
         <h3>Custom Image 2 SDEdit</h3>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="test_im2.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/test_im2.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Test2_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Test2_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7_Test2_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -207,7 +348,7 @@ last_updated: Dec 12, 2025
 
         <h4>Web Image</h4>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="web_im.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/web_im.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Web_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Web_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Web_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -218,7 +359,7 @@ last_updated: Dec 12, 2025
 
         <h4>Hand Drawn 1</h4>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="drawing1.png" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/drawing1.png" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Draw1_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Draw1_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Draw1_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -229,7 +370,7 @@ last_updated: Dec 12, 2025
 
         <h4>Hand Drawn 2</h4>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="drawing2.png" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/drawing2.png" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Draw2_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Draw2_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.1_Draw2_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -246,17 +387,17 @@ last_updated: Dec 12, 2025
             At each step of the denoising loop, we replace the "keep" pixels with the original image (plus appropriate noise for that step). This forces the model to generate new content only inside the mask, while ensuring it blends seamlessly with the surroundings.
         </p>
         <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
-            <article class="card"><figure><img class="fit" src="campanile.jpg" alt="Original"><figcaption>Original Campanile</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/campanile.jpg" alt="Original"><figcaption>Original Campanile</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.2_mask.png" alt="Mask"><figcaption>Mask (Edit Top)</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.2_Campanile_inpainted.png" alt="Inpainted"><figcaption>Inpainted Result</figcaption></figure></article>
         </div>
         
         <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
-            <article class="card"><figure><img class="fit" src="test_im1.jpg" alt="Original"><figcaption>Custom 1 Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/test_im1.jpg" alt="Original"><figcaption>Custom 1 Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.2_Test1_inpainted.png" alt="Inpainted"><figcaption>Inpainted Result</figcaption></figure></article>
         </div>
         <div class="grid" style="grid-template-columns: repeat(2, 1fr);">
-            <article class="card"><figure><img class="fit" src="test_im2.jpg" alt="Original"><figcaption>Custom 2 Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/test_im2.jpg" alt="Original"><figcaption>Custom 2 Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.2_Test2_inpainted.png" alt="Inpainted"><figcaption>Inpainted Result</figcaption></figure></article>
         </div>
     </section>
@@ -270,7 +411,7 @@ last_updated: Dec 12, 2025
 
         <h4>Campanile &rarr; "A Rocket Ship"</h4>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="campanile.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/campanile.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Campanile_rocket_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Campanile_rocket_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Campanile_rocket_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -281,7 +422,7 @@ last_updated: Dec 12, 2025
 
         <h4>Custom 1 &rarr; "A Rocket Ship"</h4>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="test_im1.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/test_im1.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Test1_rocket_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Test1_rocket_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Test1_rocket_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -292,7 +433,7 @@ last_updated: Dec 12, 2025
 
         <h4>Custom 2 &rarr; "A Rocket Ship"</h4>
         <div class="grid" style="grid-template-columns: repeat(7, 1fr); gap: 5px;">
-            <article class="card"><figure><img class="fit" src="test_im2.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
+            <article class="card"><figure><img class="fit" src="data/test_im2.jpg" alt="Original"><figcaption>Original</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Test2_rocket_i1.png" alt="i=1"><figcaption>i_start=1</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Test2_rocket_i3.png" alt="i=3"><figcaption>i_start=3</figcaption></figure></article>
             <article class="card"><figure><img class="fit" src="results/part1_sampling/1.7.3_Test2_rocket_i5.png" alt="i=5"><figcaption>i_start=5</figcaption></figure></article>
@@ -511,3 +652,6 @@ last_updated: Dec 12, 2025
             </figure>
         </div>
     </section>
+
+</body>
+</html>
